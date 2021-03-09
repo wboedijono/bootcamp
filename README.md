@@ -160,9 +160,9 @@ Load balancing ensures that the application will be highly available, in additio
 - With Jumpbox, it improves the security, by eliminating a direct admin access to the Servers or Network.
   It's because any threats may hide undetectable inside the admins PC.  
 
-Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the configuration and system files.
-- 
-- 
+Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the specific data and system files.
+- Filebeat monitors the log files or locations that you specify, collects log events, and forwards them either to Elasticsearch or Logstash for indexing.
+- Metricbeat periodically collect metrics and statistics from the operating system and from services running on the server.  Then, it ships them to the specified output, such as Elasticsearch or Logstash.
 
 The configuration details of each machine may be found below.
 
@@ -186,12 +186,85 @@ Machines within the network can only be accessed by the JumpBox Provisioner.
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses | Allowed Ports |
-|----------|---------------------|----------------------|---------------|
-| Jump Box | Yes (SSH)           | 120.154.110.138      | 22            |
-| Web-1    | Yes (HTTP)          | 120.154.110.138      | 80            |
-| Web-2    | Yes (HTTP)          | 120.154.110.138      | 80            |
-| Web-3    | Yes (HTTP)          | 120.154.110.138      | 80            |
-| Elk-1    | Yes (HTTP)          | 120.154.110.138      | 5601          |
+| Name                | Publicly Accessible | Allowed IP Addresses | Allowed Ports |
+|---------------------|---------------------|----------------------|---------------|
+| JumpBox Provisioner | Yes (SSH)           | 121.219.101.88       | 22            |
+| Web1                | Yes (HTTP)          | 121.219.101.88       | 80            |
+| Web2                | Yes (HTTP)          | 121.219.101.88       | 80            |
+| Web3                | Yes (HTTP)          | 121.219.101.88       | 80            |
+| VMELKLAB-1          | Yes (HTTP)          | 121.219.101.88       | 5601          |
 
 ### Elk Configuration
+
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because:
+
+- Very simple to setuup and user: No special coding skills are necessary to use.
+- Difficult manual tasks become repeatable and less vulnerable to error.
+- It streamlines and simplifies cloud provisioning, configuration management, application deployment, intra-service orchestrations, processes and infrastructure.
+
+### Playbooks
+
+The three playbooks above implement the following tasks:
+
+#### Playbook 1: pentest.yml
+pentest.yml is used to set up DMWA servers running in a Docker container on each of the web servies show in the diagram above.  It implements the following tasks:
+
+- Installs Docker
+- Installs Python
+- Installs Docker's Python Module
+- Downloads and launches the DVWA Docker container
+- Enables the Docker service
+
+#### Playbook 2: install-elk.yml
+install-elk.yml is used to set up and launch the ELK repository server in a Docker Container on the ELK server.  It implements the following tasks:
+
+- Installs Docker
+- Installs Python
+- Installs Docker's Python Module
+- Increase virtual memory to support the ELK stack
+- Increase memory to support the ELK stack
+- Download and launch the Docker ELK container
+
+#### Playbook 3: filebeat-playbook.yml
+filebeat-playbook.yml is used to deploy Filebeat on each of the web servers so they can be monitored centrally using ELK services running on Elk-1.  It implements the following tasks:
+
+- Downloads and installs Filebeat
+- Enables and congigures the system module
+- Configures and launches Filebeat
+
+The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
+
+![](https://github.com/luke-ozicyber/bootcamp/blob/main/diagrams/elk_docker_container.png)
+
+### Target Machines & Beats
+This ELK server is configured to monitor the following machines:
+- Web1: 10.0.0.9
+- Web2: 10.0.0.12
+- Web3: 10.0.0.13
+
+We have installed the following Beats on these machines:
+- Filebeat
+- Metricbeat
+
+These Beats allow us to collect the following information from each machine:
+
+- Filebeat collects and ships (sends to ELK for collation, persistence and reporting) logs from VMs running the Filebeat agent
+- Metricbeat collects and ships system metrics from the operating system and services of VMs running the Metricbeat
+
+### Using the Playbooks
+In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
+
+SSH into the control node and follow the steps below:
+- Copy the playbook files to Ansible Docker Container.
+- Update the Ansible hosts file `/etc/ansible/hosts` to include the following: 
+
+```
+[webservers]
+10.0.0.9 ansible_python_interpreter=/usr/bin/python3
+10.0.0.12 ansible_python_interpreter=/usr/bin/python3
+10.0.0.13 ansible_python_interpreter=/usr/bin/python3
+
+[elk]
+10.1.0.4 ansible_python_interpreter=/usr/bin/python3
+```
+
