@@ -258,12 +258,14 @@ These Beats allow us to collect the following information from each machine:
 
 - Most common that Filebeat collects from VMs running the Filebeat agent are the system logs. 
   As shown below, the collected logs from Web3 syslog shows the system tick climbed up dramatically.
-⋅⋅⋅
+
+
 ![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/filebeat-web3-syslog.JPG)
 
 - Metricbeat collects metrics from the operating system and services of VMs.
   As shown below, the collected metrics of Web3 VM where I highlighted the system.process.cpu.total as the result of CPU STRESS TEST.
-⋅⋅⋅
+
+
 ![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/metricbeat-processcputotal.png)
 
 
