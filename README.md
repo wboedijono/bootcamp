@@ -241,8 +241,7 @@ filebeat-playbook.yml is a playbook file to install Filebeat agent on each of th
 
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
-
-![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/dockerps.jpg)
+https://github.com/wboedijono/bootcamp/blob/master/Diagrams/dockerps.JPG
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
