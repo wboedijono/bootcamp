@@ -279,4 +279,17 @@ SSH into the control node and follow the steps below:
 - Update the remote_user value to the defined Azure VM's administrator username in /etc/ansible/ansible.cfg
 
 - Run the playbook, and navigate to the status of Play Recap, navigate to ELK machine(via SSH) and run "sudo docker ps", and navigate to http://52.231.202.32:5601 to check that the installation worked as expected.
+- To run playbook files for filebeat and metricbeat, the above steps have filled in a few part of basic requirements. For examples, the ansible.cfg and hosts. Filebeat-config.yml and metricbeat-config.yml need to be adjusted then copy them into /etc/ansible/files to be then copied by the playbook into the VM which need the agent. 
+  ```
+  output.elasticsearch:
+  hosts: ["10.1.0.4:9200"]
+  username: "elastic"
+  password: "changeme"
+
+  ...
+
+  setup.kibana:
+  host: "10.1.0.4:5601"
+  ```
+
 
