@@ -261,10 +261,10 @@ These Beats allow us to collect the following information from each machine:
 
 
 As shown below, the collected logs from Web3 syslog shows the system tick climbed up dramatically.
-![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/filebeat-web3-syslog.JPG)
+![image](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/filebeat-web3-syslog.JPG)
 
 As shown below, the collected metrics of Web3 VM where I highlighted the system.process.cpu.total as the result of CPU STRESS TEST.
-![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/metricbeat-processcputotal.png)
+![image](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/metricbeat-processcputotal.png)
 
 
 ### Using the Playbooks
