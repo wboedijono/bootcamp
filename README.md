@@ -225,10 +225,7 @@ install-elk.yml is a playbook file to install Docker and configure a VM with  th
 - Increases virtual memory
 - Instructs to use the increased memory
 - Downloads the Docker ELK container with image name sebp/elk
-- Launches the Docker ELK container with ports:
-        - 5601
-        - 9200
-        - 5044
+- Launches the Docker ELK container with ports: 5601, 9200, 5044
 - Enables the Docker as a service
 
 #### Playbook 3: filebeat-playbook.yml
@@ -259,8 +256,13 @@ We have installed the following Beats on these machines:
 
 These Beats allow us to collect the following information from each machine:
 
-- Filebeat collects and ships (sends to ELK for collation, persistence and reporting) logs from VMs running the Filebeat agent
-- Metricbeat collects and ships system metrics from the operating system and services of VMs running the Metricbeat
+- Most common that Filebeat collects from VMs running the Filebeat agent are the system logs. 
+  As shown below, the collected logs from Web3 syslog shows the system tick climbed up dramatically.
+![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/filebeat-web3-syslog.JPG)
+- Metricbeat collects metrics from the operating system and services of VMs.
+  As shown below, the collected metrics of Web3 VM where I highlighted the system.process.cpu.total as the result of CPU STRESS TEST. 
+![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/metricbeat-processcputotal.png)
+
 
 ### Using the Playbooks
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
