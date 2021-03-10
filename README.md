@@ -207,34 +207,45 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 The three playbooks above implement the following tasks:
 
 #### Playbook 1: pentest.yml
-pentest.yml is used to set up DMWA servers running in a Docker container on each of the web servies show in the diagram above.  It implements the following tasks:
+pentest.yml is an Ansible playbook file to install Docker and configure a VM with the DWA web app. It runs the following tasks:
 
 - Installs Docker
 - Installs Python
 - Installs Docker's Python Module
-- Downloads and launches the DVWA Docker container
-- Enables the Docker service
+- Downloads the DVWA Docker container with image name cyberxsecurity/dvwa
+- Launches the DVWA Docker container with Web port 80 and with restart_policy=always
+- Enables the Docker as a service
 
 #### Playbook 2: install-elk.yml
-install-elk.yml is used to set up and launch the ELK repository server in a Docker Container on the ELK server.  It implements the following tasks:
+install-elk.yml is a playbook file to install Docker and configure a VM with  the ELK repository app.  It runs the following tasks:
 
 - Installs Docker
 - Installs Python
 - Installs Docker's Python Module
-- Increase virtual memory to support the ELK stack
-- Increase memory to support the ELK stack
-- Download and launch the Docker ELK container
+- Increases virtual memory
+- Instructs to use the increased memory
+- Downloads the Docker ELK container with image name sebp/elk
+- Launches the Docker ELK container with ports:
+        - 5601
+        - 9200
+        - 5044
+- Enables the Docker as a service
 
 #### Playbook 3: filebeat-playbook.yml
-filebeat-playbook.yml is used to deploy Filebeat on each of the web servers so they can be monitored centrally using ELK services running on Elk-1.  It implements the following tasks:
+filebeat-playbook.yml is a playbook file to install Filebeat agent on each of the DVWA web servers for fetching the specified data for ELK monitoring purpose.  It runs the following tasks:
 
-- Downloads and installs Filebeat
-- Enables and congigures the system module
-- Configures and launches Filebeat
+- Downloads Filebeat Debian package by using curl command
+- Installs Filebeat Debian package
+- Drops in a playbook file name filebeat.yml by copying from filebeat-config.yml
+- Enables and configures the Filebeat module
+- Setup Filebeat
+- Launches Filebeat
+- Enable the Filebeat as a service
+
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/vmelklab1_docker_container.png)
+![](https://github.com/wboedijono/bootcamp/tree/master/Diagrams/dockerps.jpg)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
