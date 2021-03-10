@@ -273,7 +273,7 @@ These Beats allow us to collect the following information from each machine:
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the playbook files to Ansible Docker Container.
+- Copy the /etc/ansible/install-elk.yml file to Ansible Docker Container.
 - Update the Ansible hosts file `/etc/ansible/hosts` to include the following: 
 
 ```
@@ -285,4 +285,7 @@ SSH into the control node and follow the steps below:
 [elk]
 10.1.0.4 ansible_python_interpreter=/usr/bin/python3
 ```
+- Update the remote_user value to the defined Azure VM's administrator username in /etc/ansible/ansible.cfg
+
+- Run the playbook, and navigate to the status of Play Recap, navigate to ELK machine(via SSH) and run "sudo docker ps", and navigate to http://52.231.202.32:5601 to check that the installation worked as expected.
 
