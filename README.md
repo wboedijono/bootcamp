@@ -256,7 +256,7 @@ We have installed the following Beats on these machines:
 These Beats allow us to collect the following information from each machine:
 
 - Most common that Filebeat collects from VMs running the Filebeat agent are the system logs. One of examples is the system tick value from Syslog. ![image](https://github.com/wboedijono/bootcamp/blob/master/Diagrams/filebeat-web3-syslog.JPG)
-- Metricbeat collects metrics from the operating system and services of VMs. For an example: system.process.cpu.total counter.
+- Metricbeat collects metrics from the operating system and services of VMs. For an example: system.process.cpu.total counter. ![image](https://github.com/wboedijono/bootcamp/blob/master/Diagrams/metricbeat-processcputotal.png)
 
 
 ### Using the Playbooks
